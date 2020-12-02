@@ -7,18 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <script>
-            $(document).ready(function(){
-                
-                $.get("http://127.0.0.1:8000/greet", function(data, status){
-                    console.log("Data: ", data , "\nStatus: " , status, typeof data );
-                    
-                    var data_array= JSON.parse(data)
-                    console.log(typeof data_array, data_array)
-                    
-                });
-        });
-    </script>
+    
         <h1 style="text-align: center;">Welcome To The Greetings App!</h1>
         <h2 style="text-align: center;">Create your cards here!</h2>
         <body>
@@ -33,25 +22,24 @@
             </center>
         <h1 style="text-align: center;">Greeting Cards</h1>
         <div id = "greetingcard" class="main">
-        <!-- <script src="{% static '/js/greeting.js'%}"> </script> -->
-        {% for item in myjson %}
-            <div class='textarea'> 
-                <div class='title'> 
-                    <h4>
-                    {{item.name}}
-                    </h4>
-                    <p> 
-                    (message)
-                    </p>
-                </div>
-                <div class='description'>
-                    <h4>
-                        {{item.message}}
-                    </h4>
-                    <p> (name)</p>
-                </div>
-            </div>
-        </div>
-        {% endfor %}      
-</body>
+        <script>
+            var data_array= [];
+            
+            $(document).ready(function(){
+                
+                $.get("http://127.0.0.1:8000/greet", function(data, status){                    
+                    data_array= JSON.parse(data)
+                    var div_string= " ", index;              
+                    for (index=0; index<data_array["length"]; index++){
+                    div_string += "<div class='textarea'> <div class='title'> <h4>" + data_array[index].message + "</h4><p> (message)</p></div>"+"<div class='description'><h4> " +data_array[index].name + "</h4><p> (name)</p></div></div>";
+                    console.log(div_string)
+                    console.log(data_array[index])
+                }
+                document.getElementById("greetingcard").innerHTML = div_string;
+        
+            });
+        });
+        console.log("data"+data_array)
+        </script>
+    </body>
 </html> 
