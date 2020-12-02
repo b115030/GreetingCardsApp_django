@@ -1,8 +1,9 @@
+{% load static %} 
 <!DOCTYPE >
-<html>
+<html> 
 <head>
 	<title>Greetings Cards</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
 	<h1 style="text-align: center;">Welcome To The Greetings App!</h1>
@@ -19,6 +20,6 @@
         </center>
 	<h1 style="text-align: center;">Greeting Cards</h1>
 	<div id = "greetingcard" class="main"></div>
-	<script src="greeting.js"> </script>
+	<script src="{% static '/js/greeting.js'%}"> </script>
 </body>
 </html> 
