@@ -2,24 +2,56 @@
 <!DOCTYPE >
 <html> 
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<title>Greetings Cards</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-	<h1 style="text-align: center;">Welcome To The Greetings App!</h1>
-	<h2 style="text-align: center;">Create your cards here!</h2>
-    <body>
-        <center>
-        <form method="POST" action="">
-            Greeting: <input type="text" name="Greeting" size="25"/><br>
-            Message: <input type="text" name="Message" size="25"/><br>
-            <br>
-            <input type="reset" value="RESET">
-            <input type="submit" value="SUBMIT">
-        </form>
-        </center>
-	<h1 style="text-align: center;">Greeting Cards</h1>
-	<div id = "greetingcard" class="main"></div>
-	<script src="{% static '/js/greeting.js'%}"> </script>
+    <script>
+            $(document).ready(function(){
+                
+                $.get("http://127.0.0.1:8000/greet", function(data, status){
+                    console.log("Data: ", data , "\nStatus: " , status, typeof data );
+                    
+                    var data_array= JSON.parse(data)
+                    console.log(typeof data_array, data_array)
+                    
+                });
+        });
+    </script>
+        <h1 style="text-align: center;">Welcome To The Greetings App!</h1>
+        <h2 style="text-align: center;">Create your cards here!</h2>
+        <body>
+            <center>
+            <form method="POST" action="">
+                Greeting: <input type="text" name="Greeting" size="25"/><br>
+                Message: <input type="text" name="Message" size="25"/><br>
+                <br>
+                <input type="reset" value="RESET">
+                <input type="submit" value="SUBMIT">
+            </form>
+            </center>
+        <h1 style="text-align: center;">Greeting Cards</h1>
+        <div id = "greetingcard" class="main">
+        <!-- <script src="{% static '/js/greeting.js'%}"> </script> -->
+        {% for item in myjson %}
+            <div class='textarea'> 
+                <div class='title'> 
+                    <h4>
+                    {{item.name}}
+                    </h4>
+                    <p> 
+                    (message)
+                    </p>
+                </div>
+                <div class='description'>
+                    <h4>
+                        {{item.message}}
+                    </h4>
+                    <p> (name)</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}      
 </body>
 </html> 
